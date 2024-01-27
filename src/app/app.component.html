@@ -34,7 +34,7 @@
           <button class="button" id="main-action-button" (click)="scrollTo(products)">Смотреть меню</button>
         </div>
       </div>
-      <img src="./assets/images/main_burger.png" alt="Big burger" class="main-image">
+      <img src="./assets/images/main_burger.png" alt="Big burger" class="main-image" [ngStyle]="mainImageStyle">
     </div>
   </section>
 </section>
@@ -106,7 +106,7 @@
 <section class="order" #order id="order">
   <div class="container">
     <div class="order-title common-title">оформление заказа</div>
-    <img src="./assets/images/order_image.png" alt="burger in the box" class="order-image">
+    <img src="./assets/images/order_image.png" alt="burger in the box" class="order-image" [ngStyle]="orderImageStyle">
     <div class="order-form">
       <div class="order-form-text">
         Заполните все данные и наш менеджер свяжется с вами для подтверждения заказа
@@ -135,3 +135,7 @@
     <div class="rights">Все права защищены</div>
   </div>
 </footer>
+
+<div class="loader" [class]="{'showed': loaderShowed}" *ngIf="loader">
+  <lottie-player src="./assets/burger.json" background="transparent" speed="1.5" autoplay></lottie-player>
+</div>

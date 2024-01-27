@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {AppService} from "./app.service";
 
@@ -10,6 +10,11 @@ import {AppService} from "./app.service";
 export class AppComponent {
 
   currency = "$";
+  loaderShowed = true;
+  loader = true;
+
+  orderImageStyle: any;
+  mainImageStyle: any;
 
   form = this.fb.group({
     order: ["", Validators.required],
@@ -22,7 +27,20 @@ export class AppComponent {
   constructor(private fb: FormBuilder, private appService: AppService) {
   }
 
+  // При наведении на картинки сверху и снизу в зависимости от курсора мыши, они двигаются
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(e:MouseEvent) {
+    this.orderImageStyle = {transform: 'translate(-' + ((e.clientX * 0.3) / 8) +'px,-' + ((e.clientY * 0.3) / 8) + 'px)'};
+    this.mainImageStyle = {transform: 'translate(-' + ((e.clientX * 0.3) / 8) +'px,-' + ((e.clientY * 0.3) / 8) + 'px)'};
+  }
+
   ngOnInit() {
+    setTimeout(() => {
+      this,this.loaderShowed = false;
+    }, 3000);
+    setTimeout(() => {
+      this,this.loader = false;
+    }, 4000);
     this.appService.getData().subscribe((data) => (this.productsData = data));
   }
 
